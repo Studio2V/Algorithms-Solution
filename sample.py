@@ -57,22 +57,21 @@ def numberofdivisors(number):
     return count
 
 
-def amicableStatus(number):
+def sumdivisors(number):
     rangeN = math.ceil(math.sqrt(number))
-    digit = 0
+    count = 0
     for x in range(1, rangeN + 1):
         if number % x == 0:
-            digit += x
+            count += (x + (number / x if x != 1 else 0))
+    return int(count)
 
 
-    friendnumber = 0
-    rangeN = math.ceil(math.sqrt(digit))
-    for x in range(1, rangeN):
-        if digit % x == 0:
-            friendnumber += x
-    print(digit,friendnumber, number)
-    if friendnumber == number:
-        return 1
+def amicableStatus(number):
+    sumofnumber = sumdivisors(number)
+    sumofnumber1 = sumdivisors(sumofnumber)
+    print(number, sumofnumber1, sumofnumber)
+    if number == sumofnumber1:
+        return sumofnumber,sumofnumber1
     else:
         return 0
 
@@ -283,8 +282,13 @@ def sol13(lattice):
 def sol14(rangeN):
     amicablelist = list()
     for x in range(1, int(rangeN) + 1):
-        if amicableStatus(x):
-            amicablelist.insert()
+        if amicablelist.__contains__(x):
+            continue
+        f=amicableStatus(x)
+        if f!=0:
+            amicablelist.append(f[0])
+            amicablelist.append(f[1])
+    print(" ".join(map(lambda x: str(x), set(amicablelist))))
+    print(sum(amicablelist))
 
-
-sol14(300)
+sol14(10000)
