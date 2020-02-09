@@ -46,6 +46,37 @@ def collatzsequence(number):
     return count
 
 
+def numberofdivisors(number):
+    count = 0
+    for i in range(1, (int)(math.sqrt(number)) + 1):
+        if (number % i == 0):
+            if (number / i == i):
+                count + 1
+            else:
+                count += 2
+    return count
+
+
+def amicableStatus(number):
+    rangeN = math.ceil(math.sqrt(number))
+    digit = 0
+    for x in range(1, rangeN + 1):
+        if number % x == 0:
+            digit += x
+
+
+    friendnumber = 0
+    rangeN = math.ceil(math.sqrt(digit))
+    for x in range(1, rangeN):
+        if digit % x == 0:
+            friendnumber += x
+    print(digit,friendnumber, number)
+    if friendnumber == number:
+        return 1
+    else:
+        return 0
+
+
 '''
 multiples of 3 and 5 below 1000
 '''
@@ -224,4 +255,36 @@ def sol11(result):
                 print(i, j, k, i * j * k)
 
 
-sol11(1000)
+'''highly divisible triangular number'''
+
+
+def sol12(number):
+    i = 1
+    count = 0
+    while 1:
+        count += i
+        i += 1
+        result = numberofdivisors(count)
+        if result > number:
+            print(result, count, i)
+            break
+
+
+'''No of lattice function'''
+
+
+def sol13(lattice):
+    return print(math.factorial(2 * lattice) / math.pow(math.factorial(lattice), 2))
+
+
+'''Finding Amicable number'''
+
+
+def sol14(rangeN):
+    amicablelist = list()
+    for x in range(1, int(rangeN) + 1):
+        if amicableStatus(x):
+            amicablelist.insert()
+
+
+sol14(300)
