@@ -190,9 +190,9 @@ def sol8():
 '''int to words'''
 
 
-def sol9():
+def sol9(a):
     count = 0
-    for x in range(1, 1001):
+    for x in range(1, a):
         count += numbertowordgen(x)
         print(count)
 
@@ -212,4 +212,16 @@ def sol10():
     print(count, digit)
 
 
-sol10()
+'''Pythogeron triples'''
+
+
+def sol11(result):
+    x = 0
+    for i in range(1, int(result / 3) + 1):
+        for j in range(i, int(result / 2) + 1):
+            k = result - i - j
+            if i * i + j * j == k * k and i + j + k == result:
+                print(i, j, k, i * j * k)
+
+
+sol11(1000)
