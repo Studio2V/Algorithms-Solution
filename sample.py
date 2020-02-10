@@ -1,19 +1,26 @@
 import math
 import num2words
+import time
 
-'''
-Common
-'''
+# region Helpers
+''' Common Helper Reusable Methods'''
+
+'''checks whether prime or not 0 => true , 1=> false'''
 
 
 def findPrime(a):
-    z = math.ceil(math.sqrt(a))
-    if z == 2 and z == 3:
+    if a == 1:
+        return 0
+    if a == 2 and a == 3:
         return 1
+    z = math.ceil(math.sqrt(a))
     for s in range(z, 1, -1):
         if a % s == 0:
             return 0
     return 1
+
+
+'''Divide total array with given number and return list'''
 
 
 def dividetotalarray(number, divisor):
@@ -23,6 +30,9 @@ def dividetotalarray(number, divisor):
     return lis[1::]
 
 
+'''Returns multiples of a number'''
+
+
 def multipleofnumber(number):
     x = 1
     for m in str(number):
@@ -30,9 +40,15 @@ def multipleofnumber(number):
     return x
 
 
+'''Returns numbers  inwords without - and spaces '''
+
+
 def numbertowordgen(number):
     x = num2words.num2words(number).replace("-", "").replace(" ", "")
     return len(x)
+
+
+'''Returns the collatz sequence of a number'''
 
 
 def collatzsequence(number):
@@ -46,6 +62,9 @@ def collatzsequence(number):
     return count
 
 
+'''Returns the number of divisors of a given number'''
+
+
 def numberofdivisors(number):
     count = 0
     for i in range(1, (int)(math.sqrt(number)) + 1):
@@ -57,6 +76,9 @@ def numberofdivisors(number):
     return count
 
 
+'''Returns the sum of divisors of a given number'''
+
+
 def sumdivisors(number):
     rangeN = math.ceil(math.sqrt(number))
     count = 0
@@ -64,6 +86,9 @@ def sumdivisors(number):
         if number % x == 0:
             count += (x + (number / x if x != 1 else 0))
     return int(count)
+
+
+'''Checks whether a number is amicable or not 0=> False and number and amicalbe number => True'''
 
 
 def amicableStatus(number):
@@ -76,6 +101,9 @@ def amicableStatus(number):
         return 0
 
 
+'''Returns the sum of ascii of word *accept only alpha, *starts from 1-26 '''
+
+
 def wordtoasciicount(word):
     digitadd = 0
     for x in word:
@@ -84,22 +112,21 @@ def wordtoasciicount(word):
     return digitadd
 
 
-'''
-multiples of 3 and 5 below 1000
-'''
+# endregion
+
+# region Solution
+'''multiples of 3 and 5 below 1000 problem 01'''
 
 
-def sol1():
+def sol01():
     a = list(range(0, 1000, 3)).__add__(list(range(0, 1000, 5)))
     print(sum(list(set(a))))
 
 
-'''
-sum of even fibonacci sequence < 4000000
-'''
+'''sum of even fibonacci sequence < 4000000 problem 02'''
 
 
-def sol2():
+def sol02():
     a = 1
     b = 2
     c = 2
@@ -112,10 +139,10 @@ def sol2():
         print(c, z)
 
 
-'''find the largest factor'''
+'''find the largest factor problem 03'''
 
 
-def sol3():
+def sol03():
     a = 600851475143
     k = math.ceil(math.sqrt(a))
     for z in range(int(k), 0, -1):
@@ -125,28 +152,24 @@ def sol3():
                 break
 
 
-'''
-largest palindrome product of three numbers
-'''
+'''largest palindrome product of three numbers problem 04'''
 
 
-def sol4():
+def sol04():
     coll = list()
     for a in range(999, 100, -1):
         for b in range(999, 100, -1):
             z = str(a * b)
-            if (z == z[::-1]):
+            if z == z[::-1]:
                 coll.append(int(z))
     coll.sort()
     print(coll[-1])
 
 
-'''
-to find the number divisible by 1-20 even numbers
-'''
+'''to find the number divisible by 1-20 even numbers problem05'''
 
 
-def sol5():
+def sol05():
     a = list(range(2, 20, 2))
     f = list()
     for x in range(0, 5):
@@ -157,24 +180,20 @@ def sol5():
     print(f)
 
 
-'''
-sum of square and square of sum
-'''
+'''sum of square and square of difference problem 06'''
 
 
-def sol6(a):
+def sol06(a):
     f = a * ((a + 1) * (2 * a + 1)) / 6
     x = (a * (a + 1) / 2)
     x *= x
     print(x - f)
 
 
-'''
-find 10001st number
-'''
+'''find 10001st prime problem 07'''
 
 
-def sol7():
+def sol07():
     count = 2
     init = 0
     while 1:
@@ -187,10 +206,37 @@ def sol7():
         count += 1
 
 
-'''largest number in adjacent digit '''
+'''Pythogeron triples problem 09'''
 
 
-def sol8():
+def sol09(result):
+    x = 0
+    for i in range(1, int(result / 3) + 1):
+        for j in range(i, int(result / 2) + 1):
+            k = result - i - j
+            if i * i + j * j == k * k and i + j + k == result:
+                print(i, j, k, i * j * k)
+
+
+'''highly divisible triangular number problem 12'''
+
+
+def sol12(number):
+    i = 1
+    count = 0
+    while 1:
+        count += i
+        i += 1
+        result = numberofdivisors(count)
+        if result > number:
+            print(result, count, i)
+            break
+
+
+'''largest number in adjacent digit  problem13'''
+
+
+def sol13():
     a = ("73167176531330624919225119674426574742355349194934"
          "96983520312774506326239578318016984801869478851843"
          "85861560789112949495459501737958331952853208805511"
@@ -225,20 +271,10 @@ def sol8():
             print(prod, digit)
 
 
-'''int to words'''
+'''Longest Collatz sequence 524 837799  problem 14'''
 
 
-def sol9(a):
-    count = 0
-    for x in range(1, a):
-        count += numbertowordgen(x)
-        print(count)
-
-
-'''Longest Colletze sequence 524 837799'''
-
-
-def sol10():
+def sol14():
     count = 0
     digit = 0
     for x in range(1000000, 1000001):
@@ -250,44 +286,27 @@ def sol10():
     print(count, digit)
 
 
-'''Pythogeron triples'''
+'''No of lattice function problem 15'''
 
 
-def sol11(result):
-    x = 0
-    for i in range(1, int(result / 3) + 1):
-        for j in range(i, int(result / 2) + 1):
-            k = result - i - j
-            if i * i + j * j == k * k and i + j + k == result:
-                print(i, j, k, i * j * k)
-
-
-'''highly divisible triangular number'''
-
-
-def sol12(number):
-    i = 1
-    count = 0
-    while 1:
-        count += i
-        i += 1
-        result = numberofdivisors(count)
-        if result > number:
-            print(result, count, i)
-            break
-
-
-'''No of lattice function'''
-
-
-def sol13(lattice):
+def sol15(lattice):
     return print(math.factorial(2 * lattice) / math.pow(math.factorial(lattice), 2))
 
 
-'''Finding Amicable number'''
+'''int to words problem 17'''
 
 
-def sol14(rangeN):
+def sol17(a):
+    count = 0
+    for x in range(1, a):
+        count += numbertowordgen(x)
+        print(count)
+
+
+'''Finding Amicable number solution 21'''
+
+
+def sol21(rangeN):
     amicablelist = list()
     for x in range(1, int(rangeN)):
         if amicablelist.__contains__(x):
@@ -301,10 +320,10 @@ def sol14(rangeN):
     print(sum(amicablelist))
 
 
-'''Find Rank of names'''
+'''Find Rank of names problem 22'''
 
 
-def sol15():
+def sol22():
     a = open("p022_names.txt", "r")
     nameslist = list(a.read().split(","))
     nameslist.sort()
@@ -312,33 +331,22 @@ def sol15():
     print(sum(namesasciilist))
 
 
-'''Distict Power '''
+'''Spiral number generation problem28'''
 
 
-def sol16(rangea, rangeb):
-    powerlist = list()
-    for a in range(2, rangea + 1):
-        for b in range(2, rangeb + 1):
-            powerlist.append(int(math.pow(a, b)))
-    print(len(set(powerlist)))
-
-
-'''Spiral number generation'''
-
-
-def sol17(rangeSpiral):
-    rangeSpiral=rangeSpiral+1 if rangeSpiral%2==0 else rangeSpiral
-    totalsum=0
+def sol28(rangeSpiral):
+    rangeSpiral = rangeSpiral + 1 if rangeSpiral % 2 == 0 else rangeSpiral
+    totalsum = 0
     counter = 1
-    skipper=0
+    skipper = 0
     squareCounter = 1
     squaregen = 1
     while 1:
         print(counter)
-        totalsum+=counter
+        totalsum += counter
         if counter == squareCounter:
-            skipper+=2
-            squaregen+=2
+            skipper += 2
+            squaregen += 2
             squareCounter = int(math.pow(squaregen, 2))
         if counter >= math.pow(rangeSpiral, 2):
             break
@@ -346,4 +354,44 @@ def sol17(rangeSpiral):
     print(totalsum)
 
 
-sol17(1001)
+'''Distinct Power problem29 '''
+
+
+def sol29(rangea, rangeb):
+    powerlist = list()
+    for a in range(2, rangea + 1):
+        for b in range(2, rangeb + 1):
+            powerlist.append(int(math.pow(a, b)))
+    print(len(set(powerlist)))
+
+
+'''Consecutive prime  problem 50'''
+
+
+def sol50():
+    print(time.time())
+    counter = 2
+    loopcalculator = 0
+    a = list([2, 3])
+    while 1:
+        status = 1
+        checkupto = math.ceil(math.sqrt(counter))
+        for x in a:
+            loopcalculator += 1
+            if x > checkupto:
+                break
+            if counter in a or counter % x == 0:
+                status = 0
+                break
+
+        if status == 1:
+            a.append(counter)
+        counter += 1
+        if sum(a) > 1000000:
+            print(" ".join(map(lambda x: str(x), a)))
+            print(loopcalculator)
+            print(sum(a) - a[-1])
+            break
+    print(time.time())
+
+# endregion
