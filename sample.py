@@ -302,12 +302,48 @@ def sol14(rangeN):
 
 
 '''Find Rank of names'''
+
+
 def sol15():
     a = open("p022_names.txt", "r")
     nameslist = list(a.read().split(","))
     nameslist.sort()
-    namesasciilist=map(lambda x,y:x*y,map(wordtoasciicount, nameslist),range(1,len(nameslist)+1))
+    namesasciilist = map(lambda x, y: x * y, map(wordtoasciicount, nameslist), range(1, len(nameslist) + 1))
     print(sum(namesasciilist))
 
 
-sol15()
+'''Distict Power '''
+
+
+def sol16(rangea, rangeb):
+    powerlist = list()
+    for a in range(2, rangea + 1):
+        for b in range(2, rangeb + 1):
+            powerlist.append(int(math.pow(a, b)))
+    print(len(set(powerlist)))
+
+
+'''Spiral number generation'''
+
+
+def sol17(rangeSpiral):
+    rangeSpiral=rangeSpiral+1 if rangeSpiral%2==0 else rangeSpiral
+    totalsum=0
+    counter = 1
+    skipper=0
+    squareCounter = 1
+    squaregen = 1
+    while 1:
+        print(counter)
+        totalsum+=counter
+        if counter == squareCounter:
+            skipper+=2
+            squaregen+=2
+            squareCounter = int(math.pow(squaregen, 2))
+        if counter >= math.pow(rangeSpiral, 2):
+            break
+        counter += skipper
+    print(totalsum)
+
+
+sol17(1001)
