@@ -70,10 +70,18 @@ def amicableStatus(number):
     sumofnumber = sumdivisors(number)
     sumofnumber1 = sumdivisors(sumofnumber)
     print(number, sumofnumber1, sumofnumber)
-    if number == sumofnumber1:
-        return sumofnumber,sumofnumber1
+    if number == sumofnumber1 and sumofnumber != sumofnumber1:
+        return sumofnumber, sumofnumber1
     else:
         return 0
+
+
+def wordtoasciicount(word):
+    digitadd = 0
+    for x in word:
+        if str.isalpha(x):
+            digitadd += ord(x) - (64 if str.isupper(x) else 96)
+    return digitadd
 
 
 '''
@@ -281,14 +289,25 @@ def sol13(lattice):
 
 def sol14(rangeN):
     amicablelist = list()
-    for x in range(1, int(rangeN) + 1):
+    for x in range(1, int(rangeN)):
         if amicablelist.__contains__(x):
             continue
-        f=amicableStatus(x)
-        if f!=0:
+        f = amicableStatus(x)
+        if f != 0:
             amicablelist.append(f[0])
             amicablelist.append(f[1])
+    print(" ".join(map(lambda x: str(x), amicablelist)))
     print(" ".join(map(lambda x: str(x), set(amicablelist))))
     print(sum(amicablelist))
 
-sol14(10000)
+
+'''Find Rank of names'''
+def sol15():
+    a = open("p022_names.txt", "r")
+    nameslist = list(a.read().split(","))
+    nameslist.sort()
+    namesasciilist=map(lambda x,y:x*y,map(wordtoasciicount, nameslist),range(1,len(nameslist)+1))
+    print(sum(namesasciilist))
+
+
+sol15()
